@@ -23,11 +23,20 @@ public class PlayerHealth : MonoBehaviour
 
     }
 
+    public void TakeHealth(int health)
+    {
+        if(currentHealth < maxHealth)
+        {
+            currentHealth += health;
+            healthBar.SetHealth(currentHealth);
+        }
+        
+    }
+
     public void TakeDamage(int damage)
     {
         if (!isInvincible)
         {
-            Debug.Log(damage);
             currentHealth -= damage;
             healthBar.SetHealth(currentHealth);
             isInvincible = true;
