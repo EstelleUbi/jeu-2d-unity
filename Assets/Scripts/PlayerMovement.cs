@@ -5,8 +5,11 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public float speed;
+    public float climbSpeed;
     private bool isJumping;
     private bool isGrounded;
+    [HideInInspector]
+    public bool isClimbing;
     public float jumpForce;
 
     public Transform groundCheck;
@@ -19,12 +22,14 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 velocity = Vector3.zero;
     private float horizontalMovement;
+    private float verticalMovement;
 
 
     private void Update()
     {
         // Calcul du mouvement (direction, temps, vitesse)
         horizontalMovement = Input.GetAxis("Horizontal") * speed * Time.fixedDeltaTime;
+        verticalMovement = Input.GetAxis("Vertical") * climbSpeed * Time.fixedDeltaTime;
 
         if (Input.GetKeyDown("space") && isGrounded)
         {
@@ -37,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
         // Envoyer la vitesse à l'animator. Problème : le déplacement à gauche génère un float négatif.
         float characterVelocity = Mathf.Abs(body.velocity.x); // renvoie toujour une valeur positive 
         animator.SetFloat("speed", characterVelocity);
+        animator.SetBool("isClimbing", isClimbing);
     }
 
     private void FixedUpdate()
@@ -45,17 +51,26 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, collisionLayer);
 
         // Déplacement
-        MovePlayer(horizontalMovement);
+        MovePlayer(horizontalMovement, verticalMovement);
     }
 
-    void MovePlayer(float _horizontalMovement)
+    void MovePlayer(float _horizontalMovement, float _verticalMovement)
     {
-        Vector3 targetVelocity = new Vector2(_horizontalMovement, body.velocity.y);
-        body.velocity = Vector3.SmoothDamp(body.velocity, targetVelocity, ref velocity, .05f);
-        if (isJumping == true)
+        if (!isClimbing)
         {
-            body.AddForce(new Vector2(0f, jumpForce));
-            isJumping = false;
+            Vector3 targetVelocity = new Vector2(_horizontalMovement, body.velocity.y);
+            body.velocity = Vector3.SmoothDamp(body.velocity, targetVelocity, ref velocity, .05f);
+            if (isJumping)
+            {
+                body.AddForce(new Vector2(0f, jumpForce));
+                isJumping = false;
+            }
+        } 
+        else
+        {
+            // déplacement vertical
+            Vector3 targetVelocity = new Vector2(0, _verticalMovement);
+            body.velocity = Vector3.SmoothDamp(body.velocity, targetVelocity, ref velocity, .05f);
         }
     }
 
