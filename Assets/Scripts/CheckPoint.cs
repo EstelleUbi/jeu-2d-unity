@@ -14,7 +14,7 @@ public class CheckPoint : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             playerSpawn.position = transform.position;
-            Destroy(gameObject);
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 }
