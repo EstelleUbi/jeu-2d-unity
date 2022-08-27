@@ -16,8 +16,7 @@ public class DeathZone : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            PlayerHealth playerHealth = collision.transform.GetComponent<PlayerHealth>();
-            playerHealth.TakeDamage(30);
+            PlayerHealth.instance.TakeDamage(30);
             StartCoroutine(ReplacePlayer(collision));
         }
     }
@@ -27,5 +26,6 @@ public class DeathZone : MonoBehaviour
         fadeSystem.SetTrigger("FadeIn");
         yield return new WaitForSeconds(1f);
         collision.transform.position = playerSpawn.position;
+        
     }
 }

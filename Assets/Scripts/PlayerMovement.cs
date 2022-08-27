@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     public float groundCheckRadius;
     public LayerMask collisionLayer;
+    public CapsuleCollider2D playerCollider;
 
     public Rigidbody2D body;
     public Animator animator;
@@ -24,6 +25,19 @@ public class PlayerMovement : MonoBehaviour
     private float horizontalMovement;
     private float verticalMovement;
 
+    public static PlayerMovement instance;
+
+    // Ce système permet de créer une seule instance de playerHealth et de le rendre accessible partout (depuis toutes les autres classes)
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("Il y a plus d'une instance de PlayerMovement dans la scène");
+            return;
+        }
+
+        instance = this;
+    }
 
     private void Update()
     {
