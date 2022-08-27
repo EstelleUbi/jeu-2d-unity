@@ -12,25 +12,47 @@ public class PlayerHealth : MonoBehaviour
     public bool isInvincible = false;
     public float invincibilityFlashDelay = 0.15f;
 
+    public static PlayerHealth instance;
+
+    // Ce système permet de créer une seule instance de playerHealth et de le rendre accessible partout (depuis toutes les autres classes)
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("Il y a plus d'une instance de PlayerHealth dans la scène");
+            return;
+        }
+
+        instance = this;
+    }
+
     void Start()
     {
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
     }
 
-    void Update()
+    private void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            TakeDamage(40);
+        }
     }
 
     public void TakeHealth(int health)
     {
-        if(currentHealth < maxHealth)
+        if((currentHealth + health) > maxHealth)
         {
-            currentHealth += health;
-            healthBar.SetHealth(currentHealth);
+            currentHealth = maxHealth;
+        } 
+        else
+        {
+            currentHealth += health;  
         }
-        
+
+        healthBar.SetHealth(currentHealth);
+
     }
 
     public void TakeDamage(int damage)
@@ -39,12 +61,35 @@ public class PlayerHealth : MonoBehaviour
         {
             currentHealth -= damage;
             healthBar.SetHealth(currentHealth);
+
+            // vérification si le joueur est toujours vivant
+            if(currentHealth <= 0)
+            {
+                Die();
+                return;
+            }
+
             isInvincible = true;
             StartCoroutine(InvincibilityFlash());
             StartCoroutine(HandleInvincibilityDelay());
 
         }
     }
+
+    void Die()
+    {
+        Debug.Log("Le joueur est éliminé");
+        // Bloquer les mouvements du personnage
+        PlayerMovement.instance.enabled = false;
+
+        // Jouer l'animation d'élimination
+        PlayerMovement.instance.animator.SetTrigger("die");
+
+        // Empecher les interaction physique avec les autres éléments de la scène
+        PlayerMovement.instance.body.bodyType = RigidbodyType2D.Kinematic;
+        PlayerMovement.instance.playerCollider.enabled = false;
+    }
+
 
     public IEnumerator InvincibilityFlash()
     {

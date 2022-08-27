@@ -6,18 +6,7 @@ public class PickUpObject : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            switch (transform.tag)
-            {
-                case "Coin":
-                    Inventory.instance.AddCoins(1);
-                    break;
-                case "Heart":
-                    PlayerHealth playerHealth = collision.transform.GetComponent<PlayerHealth>();
-                    playerHealth.TakeHealth(10);
-                    break;
-
-            }
-            
+            Inventory.instance.AddCoins(1);
             Destroy(gameObject);
         }
     }

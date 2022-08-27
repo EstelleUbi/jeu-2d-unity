@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 3773833071758493077}
   - component: {fileID: 3773833071758493082}
   - component: {fileID: 3773833071758493083}
-  - component: {fileID: 3773833071758493080}
+  - component: {fileID: 835485346986152632}
+  - component: {fileID: 5508185481229713195}
   m_Layer: 0
-  m_Name: Heart
+  m_Name: HealPowerUp
   m_TagString: Heart
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3773833071758493081}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.507, y: -2.501, z: 0}
-  m_LocalScale: {x: 6.424683, y: 6.1808033, z: 1}
+  m_LocalScale: {x: 0.7480171, y: 0.7196225, z: 0.116428636}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -74,8 +75,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2102901103173ab4bb44ed876789346e, type: 3}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 2103382320, guid: 8971340c0ee5b1144953d86c8da75e00, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,7 +103,27 @@ CircleCollider2D:
   m_Offset: {x: 0.0004782987, y: 0.00049720495}
   serializedVersion: 2
   m_Radius: 0.04203994
---- !u!114 &3773833071758493080
+--- !u!95 &835485346986152632
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3773833071758493081}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0669394c50d5def4a9f09221f78cb3a2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5508185481229713195
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,6 +132,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 3773833071758493081}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b79565fb1e86ce2489f24502f319eb5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ee2f582e1a6d8941b934405b0d796ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
