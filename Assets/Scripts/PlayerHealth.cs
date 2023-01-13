@@ -87,6 +87,7 @@ public class PlayerHealth : MonoBehaviour
 
         // Empecher les interaction physique avec les autres éléments de la scène
         PlayerMovement.instance.body.bodyType = RigidbodyType2D.Kinematic;
+        PlayerMovement.instance.body.velocity = Vector3.zero;
         PlayerMovement.instance.playerCollider.enabled = false;
 
         // Appel du menu game over
