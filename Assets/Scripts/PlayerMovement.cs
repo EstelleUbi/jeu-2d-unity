@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
         horizontalMovement = Input.GetAxis("Horizontal") * speed * Time.fixedDeltaTime;
         verticalMovement = Input.GetAxis("Vertical") * climbSpeed * Time.fixedDeltaTime;
 
-        if (Input.GetKeyDown("space") && isGrounded)
+        if (Input.GetKeyDown("space") && isGrounded && !isClimbing)
         {
             Debug.Log("jump");
             isJumping = true;
